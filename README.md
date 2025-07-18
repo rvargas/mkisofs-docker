@@ -99,7 +99,7 @@ docker run --rm \
 ## Container Details
 
 - **Base image**: Alpine Linux 3.20
-- **Packages**: cdrkit, xorriso
+- **Package**: xorriso
 - **Implementation**: `xorriso -as mkisofs` (mkisofs compatibility mode)
 - **Working directory**: `/data`
 - **Entrypoint**: `["xorriso", "-as", "mkisofs"]`
@@ -145,5 +145,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 - [xorriso](https://www.gnu.org/software/xorriso/) - GNU xorriso, modern ISO 9660 Rock Ridge filesystem manipulator
-- [cdrkit](http://cdrkit.org/) - The CD/DVD/BD recording toolkit
 - [Alpine Linux](https://alpinelinux.org/) - Security-oriented, lightweight Linux distribution 
