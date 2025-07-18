@@ -1,9 +1,9 @@
 # mkisofs-docker
 
 [![Docker Hub](https://img.shields.io/docker/pulls/rvargas/mkisofs-docker)](https://hub.docker.com/r/rvargas/mkisofs-docker)
-[![Docker Image Size](https://img.shields.io/docker/image-size/rvargas/mkisofs-docker/1.0.0)](https://hub.docker.com/r/rvargas/mkisofs-docker)
+[![Docker Image Size](https://img.shields.io/docker/image-size/rvargas/mkisofs-docker/1.1.0)](https://hub.docker.com/r/rvargas/mkisofs-docker)
 
-A lightweight Docker container for creating ISO 9660 filesystem images using `mkisofs` from the cdrkit package.
+A lightweight Docker container for creating ISO 9660 filesystem images with `mkisofs` compatibility, powered by the modern `xorriso` implementation.
 
 ## Quick Start
 
@@ -11,13 +11,13 @@ A lightweight Docker container for creating ISO 9660 filesystem images using `mk
 
 ```bash
 # Pull the image (optional - Docker will pull automatically if not present)
-docker pull rvargas/mkisofs-docker:1.0.0
+docker pull rvargas/mkisofs-docker:1.1.0
 
 # Show help and available options
-docker run --rm rvargas/mkisofs-docker:1.0.0
+docker run --rm rvargas/mkisofs-docker:1.1.0
 
 # Create an ISO from files in current directory
-docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
+docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.1.0 \
   -o output.iso -V "My Volume" .
 ```
 
@@ -28,7 +28,7 @@ Only needed if you want to modify the container or contribute to the project:
 ```bash
 git clone https://github.com/rvargas/mkisofs-docker.git
 cd mkisofs-docker
-docker build -t rvargas/mkisofs-docker:1.0.0 .
+docker build -t rvargas/mkisofs-docker:1.1.0 .
 ```
 
 ## Usage Examples
@@ -38,7 +38,7 @@ docker build -t rvargas/mkisofs-docker:1.0.0 .
 Create an ISO from files in the current directory:
 
 ```bash
-docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
+docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.1.0 \
   -o myfiles.iso -V "MyFiles" .
 ```
 
@@ -47,7 +47,7 @@ docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
 Create a bootable ISO with specific volume label and system identifier:
 
 ```bash
-docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
+docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.1.0 \
   -o bootable.iso \
   -V "BOOT_DISK" \
   -A "My Application" \
@@ -65,7 +65,7 @@ docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
 Process files from a specific directory:
 
 ```bash
-docker run --rm -v /path/to/source:/data rvargas/mkisofs-docker:1.0.0 \
+docker run --rm -v /path/to/source:/data rvargas/mkisofs-docker:1.1.0 \
   -o output.iso -V "SOURCE_FILES" .
 ```
 
@@ -77,7 +77,7 @@ Save the ISO to a specific location:
 docker run --rm \
   -v $(pwd)/source:/data \
   -v $(pwd)/output:/output \
-  rvargas/mkisofs-docker:1.0.0 \
+  rvargas/mkisofs-docker:1.1.0 \
   -o /output/result.iso -V "RESULT" /data
 ```
 
@@ -99,9 +99,10 @@ docker run --rm \
 ## Container Details
 
 - **Base image**: Alpine Linux 3.20
-- **Package**: cdrkit (provides mkisofs)
+- **Packages**: cdrkit, xorriso
+- **Implementation**: `xorriso -as mkisofs` (mkisofs compatibility mode)
 - **Working directory**: `/data`
-- **Entrypoint**: `mkisofs`
+- **Entrypoint**: `["xorriso", "-as", "mkisofs"]`
 - **Default command**: `--help`
 
 ## Building and Development
@@ -130,7 +131,7 @@ echo "Hello World" > test-files/hello.txt
 echo "Test content" > test-files/test.txt
 
 # Create ISO
-docker run --rm -v $(pwd)/test-files:/data rvargas/mkisofs-docker:1.0.0 \
+docker run --rm -v $(pwd)/test-files:/data rvargas/mkisofs-docker:1.1.0 \
   -o test.iso -V "TEST" .
 
 # Verify ISO was created
@@ -143,5 +144,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
+- [xorriso](https://www.gnu.org/software/xorriso/) - GNU xorriso, modern ISO 9660 Rock Ridge filesystem manipulator
 - [cdrkit](http://cdrkit.org/) - The CD/DVD/BD recording toolkit
 - [Alpine Linux](https://alpinelinux.org/) - Security-oriented, lightweight Linux distribution 
