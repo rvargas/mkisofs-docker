@@ -8,10 +8,10 @@ A lightweight Docker container for creating ISO 9660 filesystem images using `mk
 
 ```bash
 # Show help and available options
-docker run --rm rvargas/mkisofs-docker
+docker run --rm rvargas/mkisofs-docker:1.0.0
 
 # Create an ISO from files in current directory
-docker run --rm -v $(pwd):/data rvargas/mkisofs-docker \
+docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
   -o output.iso -V "My Volume" .
 ```
 
@@ -30,7 +30,7 @@ docker build -t mkisofs-docker .
 Create an ISO from files in the current directory:
 
 ```bash
-docker run --rm -v $(pwd):/data mkisofs-docker \
+docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
   -o myfiles.iso -V "MyFiles" .
 ```
 
@@ -39,7 +39,7 @@ docker run --rm -v $(pwd):/data mkisofs-docker \
 Create a bootable ISO with specific volume label and system identifier:
 
 ```bash
-docker run --rm -v $(pwd):/data mkisofs-docker \
+docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
   -o bootable.iso \
   -V "BOOT_DISK" \
   -A "My Application" \
@@ -57,7 +57,7 @@ docker run --rm -v $(pwd):/data mkisofs-docker \
 Process files from a specific directory:
 
 ```bash
-docker run --rm -v /path/to/source:/data mkisofs-docker \
+docker run --rm -v /path/to/source:/data rvargas/mkisofs-docker:1.0.0 \
   -o output.iso -V "SOURCE_FILES" .
 ```
 
@@ -69,7 +69,7 @@ Save the ISO to a specific location:
 docker run --rm \
   -v $(pwd)/source:/data \
   -v $(pwd)/output:/output \
-  mkisofs-docker \
+  rvargas/mkisofs-docker:1.0.0 \
   -o /output/result.iso -V "RESULT" /data
 ```
 
@@ -122,7 +122,7 @@ echo "Hello World" > test-files/hello.txt
 echo "Test content" > test-files/test.txt
 
 # Create ISO
-docker run --rm -v $(pwd)/test-files:/data mkisofs-docker \
+docker run --rm -v $(pwd)/test-files:/data rvargas/mkisofs-docker:1.0.0 \
   -o test.iso -V "TEST" .
 
 # Verify ISO was created
