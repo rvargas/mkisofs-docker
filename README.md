@@ -1,12 +1,18 @@
 # mkisofs-docker
 
+[![Docker Hub](https://img.shields.io/docker/pulls/rvargas/mkisofs-docker)](https://hub.docker.com/r/rvargas/mkisofs-docker)
+[![Docker Image Size](https://img.shields.io/docker/image-size/rvargas/mkisofs-docker/1.0.0)](https://hub.docker.com/r/rvargas/mkisofs-docker)
+
 A lightweight Docker container for creating ISO 9660 filesystem images using `mkisofs` from the cdrkit package.
 
 ## Quick Start
 
-### Pull and run the container
+### Using the pre-built image (recommended)
 
 ```bash
+# Pull the image (optional - Docker will pull automatically if not present)
+docker pull rvargas/mkisofs-docker:1.0.0
+
 # Show help and available options
 docker run --rm rvargas/mkisofs-docker:1.0.0
 
@@ -15,12 +21,14 @@ docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.0.0 \
   -o output.iso -V "My Volume" .
 ```
 
-### Build locally
+### Building from source (for development)
+
+Only needed if you want to modify the container or contribute to the project:
 
 ```bash
 git clone https://github.com/rvargas/mkisofs-docker.git
 cd mkisofs-docker
-docker build -t mkisofs-docker .
+docker build -t rvargas/mkisofs-docker:1.0.0 .
 ```
 
 ## Usage Examples
