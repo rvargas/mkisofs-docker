@@ -1,0 +1,19 @@
+# Test files
+test-files/
+*.iso
+
+# Docker build context
+.dockerignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log 
