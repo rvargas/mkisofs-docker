@@ -60,11 +60,15 @@ For UHD Blu-ray disc authoring with BDMV structure:
 
 ```bash
 docker run --rm -v $(pwd):/data rvargas/mkisofs-docker:1.2.0 \
-  -o uhd-bluray.iso \
-  -udf \
-  -V "UHD_BLURAY" \
-  BDMV CERTIFICATE
+  -o backup-disc.iso \
+  -udf -iso-level 3 \
+  -V "BACKUP_DISC" \
+  -graft-points \
+  BDMV=/data/BDMV \
+  CERTIFICATE=/data/CERTIFICATE
 ```
+
+**Important**: The `-graft-points` option ensures the `BDMV` and `CERTIFICATE` directories are placed at the root of the ISO, not their contents. This maintains the proper disc structure.
 
 ### Advanced bootable ISO
 
